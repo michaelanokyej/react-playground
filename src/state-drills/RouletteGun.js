@@ -7,33 +7,31 @@ class RouletteGun extends React.Component{
     }
 
     handleClick = () => {
+
         this.setState({
+            chamber: null,
             spinningTheChamber: true
         })
 
-        let randomNumber = () => {Math.ceil(Math.random() * 8)};
+        let randomNumber = Math.ceil(Math.random() * 8);
 
-        setInterval(() => {
+        setTimeout(() => {
+            console.log(randomNumber);
             this.setState({
                 chamber: randomNumber,
                 spinningTheChamber: false
             })    
         }
             , 2000)
+        
+        clearTimeout()        
     }
-    
-    // Ask Jay how to execute this 
-    // componentWillUnmount() {
-    //     clearTimeout()
-    // }
 
     render(){
         return <div>
-            <p>
-                {this.state.spinningTheChamber === true && <span>spinning the chamber and pulling the trigger! ....</span>}
-                {this.state.chamber === this.props.bulletInChamber && <span>BANG!!!!</span>}
-                {<span>you're safe!!</span>}
-            </p>
+                {this.state.spinningTheChamber === true && <p>spinning the chamber and pulling the trigger! ....</p>}
+                {this.state.chamber === this.props.bulletInChamber && <p>BANG!!!!</p>}
+                {this.state.chamber !== this.props.bulletInChamber && this.state.spinningTheChamber === false && <p>you're safe!!</p>}
             <button onClick={() => {
                 this.handleClick()
                 }}>

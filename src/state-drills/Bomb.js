@@ -2,7 +2,9 @@ import React from 'react';
 
 class Bomb extends React.Component{
     state={
-        message: 'tick',
+        tick: 'tick',
+        tock: 'tock',
+        boom: 'BOOM!!!!',
         count: 0
     }
 
@@ -14,16 +16,14 @@ class Bomb extends React.Component{
         }, 1000)
     }
 
-      componentWillUnmount() {
-        clearTimeout(this.state.count)
-    }
+  
 
   
-    handleMessage = ()=>{
-        {this.state.count % 2 === 0 && this.setState({message: 'tick'})} 
-        {this.state.count % 2 !== 0 && this.setState({message: 'tock'})}
-        console.log(this.state.message)
-    }
+    // handleMessage = ()=>{
+    //     {this.state.count % 2 === 0 && this.setState({message: 'tick'})} 
+    //     {this.state.count % 2 !== 0 && this.setState({message: 'tock'})}
+    //     console.log(this.state.message)
+    // }
 
 
 
@@ -33,10 +33,36 @@ class Bomb extends React.Component{
     
 
     render(){
-        return <div>
-            <p>{this.state.message}</p>
-        </div>
-    }
-}
+        if(this.state.count % 2 === 0 && this.state.count < 8){
+            return(
+                <div>
+                    <p>{this.state.tick}</p>
+                    <p>{this.state.count}</p>
+                </div>
+            );
+        }
+        else if(this.state.count === 8){
+            return(
+                <div>
+                    <p>{this.state.boom}</p>
+                    <p>{this.state.count}</p>
+                </div>
+            );
+        }
+        else if(this.state.count > 8){
+            clearInterval(this.interval)
+            return null;
+        }
+        else{
+            return(
+                <div>
+                    <p>{this.state.tock}</p>
+                    <p>{this.state.count}</p>
+                </div>
+            );
+        }
+ }
+ }
+
 
 export default Bomb;
